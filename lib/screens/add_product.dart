@@ -1,17 +1,14 @@
-import 'package:cloud_firestore/cloud_firestore.dart';
-import 'package:firestore_crud_app/db_services.dart';
+import 'package:firestore_crud_app/screens/db_services.dart';
 import 'package:flutter/material.dart';
 
-class EditProduct extends StatefulWidget {
-  const EditProduct({super.key, required this.editProduct});
-
-  final DocumentSnapshot editProduct;
+class AddProduct extends StatefulWidget {
+  const AddProduct({super.key});
 
   @override
-  State<EditProduct> createState() => _EditProductState();
+  State<AddProduct> createState() => _AddProductState();
 }
 
-class _EditProductState extends State<EditProduct> {
+class _AddProductState extends State<AddProduct> {
 
   final DatabaseService _databaseService = DatabaseService();
 
@@ -22,17 +19,10 @@ class _EditProductState extends State<EditProduct> {
   bool _validatePrice = false;
 
   @override
-  initState() {
-    super.initState();
-    _nameController.text = widget.editProduct['name'];
-    _priceController.text = widget.editProduct['price'].toString();
-  }
-
-  @override
   Widget build(BuildContext context) {
     return Scaffold(
       appBar: AppBar(
-        title: Text("Edit Product"),
+        title: const Text("Add New Product"),
       ),
       body: SingleChildScrollView(
         child: Container(
@@ -40,7 +30,7 @@ class _EditProductState extends State<EditProduct> {
           child: Column(
             crossAxisAlignment: CrossAxisAlignment.start,
             children: [
-              const Text('Edit This Product',
+              const Text('Add New Product',
                 style: TextStyle(fontSize: 20, color: Colors.teal, fontWeight: FontWeight.w500),
               ),
               const SizedBox(height: 20.0,),
@@ -79,17 +69,19 @@ class _EditProductState extends State<EditProduct> {
                               ? _validatePrice = true
                               : _validatePrice = false;
                         });
-                        final String name = _nameController.text;
-                        final double? price = double.tryParse(_priceController.text);
+                        Map<String, dynamic> data = {
+                          "name" : _nameController.text,
+                          "price" : double.tryParse(_priceController.text)!,
+                        };
                         if (_validateName == false &&  _validatePrice == false) {
-                          await _databaseService.updateData(widget.editProduct.id, name, price!);
+                            await _databaseService.addData(data);
 
-                          _nameController.text = '';
-                          _priceController.text = '';
-                          Navigator.of(context).pop();
+                            _nameController.text = '';
+                            _priceController.text = '';
+                            Navigator.of(context).pop();
                         }
                       },
-                      child: const Text('Update Product')),
+                      child: const Text('Add Product')),
                   const SizedBox(
                     width: 10.0,
                   ),

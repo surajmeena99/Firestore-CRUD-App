@@ -1,6 +1,6 @@
 import 'package:firebase_core/firebase_core.dart';
 import 'package:firestore_crud_app/firebase_options.dart';
-import 'package:firestore_crud_app/home_screen.dart';
+import 'package:firestore_crud_app/splash_screen.dart';
 import 'package:flutter/material.dart';
 
 void main() async{
@@ -23,7 +23,7 @@ class MyApp extends StatelessWidget {
         colorScheme: ColorScheme.fromSeed(seedColor: Colors.deepPurple),
         useMaterial3: true,
       ),
-      home: const HomeScreen(),
+      home: const SplashScreen(),
     );
   }
 }

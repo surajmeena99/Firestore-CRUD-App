@@ -1,26 +1,51 @@
 {
   "project_info": {
-    "project_number": "550769108747",
-    "project_id": "crud-firestore-99",
-    "storage_bucket": "crud-firestore-99.appspot.com"
+    "project_number": "------------",
+    "project_id": "-------",
+    "storage_bucket": "---------------"
   },
   "client": [
     {
       "client_info": {
-        "mobilesdk_app_id": "1:550769108747:android:52effc581efbd24048240e",
+        "mobilesdk_app_id": "---------------------",
         "android_client_info": {
-          "package_name": "com.example.firestore_crud_app"
+          "package_name": "----------------"
         }
       },
-      "oauth_client": [],
+      "oauth_client": [
+        {
+          "client_id": "------------------",
+          "client_type": 1,
+          "android_info": {
+            "package_name": "--------------------",
+            "certificate_hash": "--------------------"
+          }
+        },
+        {
+          "client_id": "----------------------",
+          "client_type": 3
+        }
+      ],
       "api_key": [
         {
-          "current_key": "AIzaSyAqM6VUshN6sYvgKpON7XyA9eGjLZlgJKQ"
+          "current_key": "--------------------"
         }
       ],
       "services": {
         "appinvite_service": {
-          "other_platform_oauth_client": []
+          "other_platform_oauth_client": [
+            {
+              "client_id": "-------------------------",
+              "client_type": 3
+            },
+            {
+              "client_id": "-----------------",
+              "client_type": 2,
+              "ios_info": {
+                "bundle_id": "-------------------------"
+              }
+            }
+          ]
         }
       }
     }

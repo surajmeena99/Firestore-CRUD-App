@@ -1,7 +1,8 @@
 import 'package:cloud_firestore/cloud_firestore.dart';
-import 'package:firestore_crud_app/add_product.dart';
-import 'package:firestore_crud_app/db_services.dart';
-import 'package:firestore_crud_app/edit_product.dart';
+import 'package:firebase_auth/firebase_auth.dart';
+import 'package:firestore_crud_app/screens/add_product.dart';
+import 'package:firestore_crud_app/screens/db_services.dart';
+import 'package:firestore_crud_app/screens/edit_product.dart';
 import 'package:flutter/material.dart';
 
 class HomeScreen extends StatefulWidget {
@@ -13,6 +14,8 @@ class HomeScreen extends StatefulWidget {
 
 class _HomeScreenState extends State<HomeScreen> {
 
+  final FirebaseAuth firebaseAuth = FirebaseAuth.instance;
+
   final DatabaseService _databaseService = DatabaseService();
 
   Future<void> _deleteConfirmationDialog(DocumentSnapshot product) async {
@@ -21,7 +24,7 @@ class _HomeScreenState extends State<HomeScreen> {
       builder: (BuildContext context) {
         return AlertDialog(
           title: const Text('Delete Confirmation'),
-          content: const Text('Are you sure you want to delete this contact?'),
+          content: const Text('Are you sure you want to delete this Product?'),
           actions: [
             TextButton(
               onPressed: () {
@@ -46,11 +49,6 @@ class _HomeScreenState extends State<HomeScreen> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      appBar: AppBar(
-        title: const Text('Products List'),
-        backgroundColor: Colors.blue,
-        foregroundColor: Colors.white,
-      ),
       body: StreamBuilder<QuerySnapshot>(
         stream: _databaseService.getData(),
         builder: (context, AsyncSnapshot<QuerySnapshot> snapshot) {
