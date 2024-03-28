@@ -3,6 +3,7 @@ import 'dart:io';
 
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:firebase_auth/firebase_auth.dart';
+import 'package:firebase_database/firebase_database.dart';
 import 'package:firebase_storage/firebase_storage.dart';
 import 'package:firestore_crud_app/authentication/login.dart';
 import 'package:firestore_crud_app/dashboard.dart';
@@ -59,8 +60,15 @@ class _SignUpState extends State<SignUp> {
             'username': name,
             'email': email,
             'imageUrl': downloadImgUrl,
-          }
-      );
+          });
+
+      await FirebaseDatabase.instance.ref().child('users')
+        .child(userCredential.user!.uid)
+        .set({
+          'username': name,
+          'email': email,
+          'imageUrl': downloadImgUrl,
+        });
 
       Navigator.push(context, 
         MaterialPageRoute(builder: (context) => const MyDashboard())
