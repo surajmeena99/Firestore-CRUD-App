@@ -24,6 +24,8 @@ class _SignUpState extends State<SignUp> {
   TextEditingController passwordcontroller = TextEditingController();
   TextEditingController mailcontroller = TextEditingController();
 
+  bool isVisible = false;
+
   final _formkey = GlobalKey<FormState>();
   File? _pickedImageFile;
 
@@ -150,8 +152,8 @@ class _SignUpState extends State<SignUp> {
                             decoration: const InputDecoration(
                                 border: InputBorder.none,
                                 hintText: "Name",
-                                hintStyle: TextStyle(
-                                  color: Color(0xFFb2b7bf), fontSize: 18.0)
+                                hintStyle: TextStyle(color: Color(0xFFb2b7bf), fontSize: 18.0),
+                                prefixIcon: Icon(Icons.person)
                             ),
                           ),
                         ),
@@ -180,7 +182,8 @@ class _SignUpState extends State<SignUp> {
                               hintStyle: TextStyle(
                                 color: Color(0xFFb2b7bf), 
                                 fontSize: 18.0
-                              )
+                              ),
+                              prefixIcon: Icon(Icons.email)
                             ),
                           ),
                         ),
@@ -201,15 +204,24 @@ class _SignUpState extends State<SignUp> {
                               return null;
                             },
                             controller: passwordcontroller,
-                            decoration: const InputDecoration(
+                            decoration: InputDecoration(
                               border: InputBorder.none,
                               hintText: "Password",
-                              hintStyle: TextStyle(
-                                color: Color(0xFFb2b7bf), 
+                              hintStyle: const TextStyle(
+                                color: const Color(0xFFb2b7bf), 
                                 fontSize: 18.0
+                              ),
+                              prefixIcon: const Icon(Icons.lock),
+                              suffixIcon: IconButton(
+                                onPressed: (){
+                                  setState(() {
+                                    isVisible = !isVisible;
+                                  });
+                                }, 
+                                icon: Icon(isVisible ? Icons.visibility : Icons.visibility_off),
                               )
                             ),
-                            obscureText: true,  
+                            obscureText: !isVisible,  
                           ),
                         ),
                         const SizedBox(

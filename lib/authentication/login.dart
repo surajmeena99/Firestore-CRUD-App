@@ -21,6 +21,8 @@ class _LogInState extends State<LogIn> {
 
   final _formkey = GlobalKey<FormState>();
 
+  bool isVisible = false;
+
   userLogin() async {
     try {
       await FirebaseAuth.instance.signInWithEmailAndPassword(email: email, password: password);
@@ -56,11 +58,17 @@ class _LogInState extends State<LogIn> {
             child: Column(
               children: [
                 Container(
-                    width: MediaQuery.of(context).size.width,
-                    child: Image.asset(
-                      "images/login.png",
-                      fit: BoxFit.cover,
-                    )),
+                  height: 250,
+                  width: 250,
+                  padding: const EdgeInsets.all(20.0),
+                    decoration: BoxDecoration(
+                      shape: BoxShape.circle,
+                      color: Colors.purple.shade50,
+                    ),
+                  child: Image.asset(
+                    "images/login.png",
+                    fit: BoxFit.cover,
+                  )),
                 const SizedBox(
                   height: 30.0,
                 ),
@@ -71,11 +79,11 @@ class _LogInState extends State<LogIn> {
                     child: Column(
                       children: [
                         Container(
-                          padding:
-                              const EdgeInsets.symmetric(vertical: 2.0, horizontal: 30.0),
+                          padding: const EdgeInsets.symmetric(vertical: 2.0, horizontal: 30.0),
                           decoration: BoxDecoration(
                               color: const Color(0xFFedf0f8),
-                              borderRadius: BorderRadius.circular(30)),
+                              borderRadius: BorderRadius.circular(30),
+                          ),
                           child: TextFormField(
                             validator: (value) {
                               if (value == null || value.isEmpty) {
@@ -85,21 +93,23 @@ class _LogInState extends State<LogIn> {
                             },
                             controller: mailcontroller,
                             decoration: const InputDecoration(
+                                // label: Icon(Icons.email),
                                 border: InputBorder.none,
                                 hintText: "Email",
-                                hintStyle: TextStyle(
-                                    color: Color(0xFFb2b7bf), fontSize: 18.0)),
+                                hintStyle: TextStyle(color: Color(0xFFb2b7bf), fontSize: 18.0),
+                                prefixIcon: Icon(Icons.email)
+                            ),
                           ),
                         ),
                         const SizedBox(
                           height: 30.0,
                         ),
                         Container(
-                          padding:
-                              const EdgeInsets.symmetric(vertical: 2.0, horizontal: 30.0),
+                          padding: const EdgeInsets.symmetric(vertical: 2.0, horizontal: 30.0),
                           decoration: BoxDecoration(
-                              color: const Color(0xFFedf0f8),
-                              borderRadius: BorderRadius.circular(30)),
+                            color: const Color(0xFFedf0f8),
+                            borderRadius: BorderRadius.circular(30),
+                          ),
                           child: TextFormField(
                             controller: passwordcontroller,
                             validator: (value) {
@@ -108,12 +118,23 @@ class _LogInState extends State<LogIn> {
                               }
                               return null;
                             },
-                            decoration: const InputDecoration(
-                                border: InputBorder.none,
-                                hintText: "Password",
-                                hintStyle: TextStyle(
-                                    color: Color(0xFFb2b7bf), fontSize: 18.0)),
-                       obscureText: true,   ),
+                            decoration: InputDecoration(
+                              border: InputBorder.none,
+                              hintText: "Password",
+                              hintStyle: const TextStyle(color: Color(0xFFb2b7bf), fontSize: 18.0),
+                              prefixIcon: const Icon(Icons.lock),
+                              suffixIcon: IconButton(
+                                onPressed: () {
+                                  setState(() {
+                                    isVisible = !isVisible;
+                                  });
+                                }, 
+                                icon: Icon(isVisible ? Icons.visibility : Icons.visibility_off)
+                              ),
+                            ),
+                            obscureText: !isVisible,  
+                             
+                          ),
                         ),
                         const SizedBox(
                           height: 30.0,

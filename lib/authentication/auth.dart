@@ -1,7 +1,7 @@
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:firebase_database/firebase_database.dart';
-import 'package:firestore_crud_app/screens/home_screen.dart';
+import 'package:firestore_crud_app/dashboard.dart';
 import 'package:flutter/material.dart';
 import 'package:google_sign_in/google_sign_in.dart';
 
@@ -46,9 +46,10 @@ class AuthMethods {
       await FirebaseDatabase.instance.ref().child('users')
         .child(userDetails.uid)
         .set(userInfoMap);    
+        
       // Navigate to home screen
       Navigator.push(context,
-        MaterialPageRoute(builder: (context) => const HomeScreen()),
+        MaterialPageRoute(builder: (context) => const MyDashboard()),
       );
     }
   }
